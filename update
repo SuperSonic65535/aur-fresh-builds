@@ -1,24 +1,29 @@
 #!/bin/sh
-REPO_DIR="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
-REPO_NAME="aur-fresh-builds"
-cd "$REPO_DIR"
-echo "[UPDATE] Creating $REPO_NAME DB"
+AUR_REPO_DIR="$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
+AUR_REPO="aur-fresh-builds"
+cd "$AUR_REPO_DIR"
+echo "[UPDATE] Creating $AUR_REPO DB"
 
 # Delete old files
-rm -f "$REPO_DIR"/*.db "$REPO_DIR"/*.files "$REPO_DIR"/*.sig "$REPO_DIR"/*.tar.gz &> /dev/null
+rm -f "$AUR_REPO_DIR"/*.db "$AUR_REPO_DIR"/*.files "$AUR_REPO_DIR"/*.sig "$AUR_REPO_DIR"/*.tar.gz &> /dev/null
 
 # Sign all packages
-#for FILE in $(ls "$REPO_DIR"/*.pkg.tar.zst); do
+#for FILE in $(ls "$AUR_REPO_DIR"/*.pkg.tar.zst); do
 #	gpg --use-agent --output "$FILE.sig" --detach-sig "$FILE"
 #done
 
 # Create repo and add packages (everything is signed)
-#repo-add --verify --sign "$REPO_DIR/$REPO_NAME.db.tar.gz" "$REPO_DIR"/*.pkg.tar.zst
-repo-add --verify "$REPO_DIR/$REPO_NAME.db.tar.gz" "$REPO_DIR"/*.pkg.tar.zst
+#repo-add --verify --sign "$AUR_REPO_DIR/$AUR_REPO.db.tar.gz" "$AUR_REPO_DIR"/*.pkg.tar.zst
+repo-add --verify "$AUR_REPO_DIR/$AUR_REPO.db.tar.gz" "$AUR_REPO_DIR"/*.pkg.tar.zst
 
 # Delete/rename files for pacman
-rm $REPO_NAME.db $REPO_NAME.files &> /dev/null
-mv $REPO_NAME.db.tar.gz $REPO_NAME.db &> /dev/null
-mv $REPO_NAME.files.tar.gz $REPO_NAME.files &> /dev/null
-mv $REPO_NAME.db.tar.gz.sig $REPO_NAME.db.sig &> /dev/null
-mv $REPO_NAME.files.tar.gz.sig $REPO_NAME.files.sig &> /dev/null
+#rm $AUR_REPO.db $AUR_REPO.files &> /dev/null
+
+#mv $AUR_REPO.db.tar.gz $AUR_REPO.db &> /dev/null
+#mv $AUR_REPO.files.tar.gz $AUR_REPO.files &> /dev/null
+
+#ln -sfr $AUR_REPO_DIR/$AUR_REPO.db $AUR_REPO_DIR/$AUR_REPO.db.tar.gz
+#ln -sfr $AUR_REPO_DIR/$AUR_REPO.files $AUR_REPO_DIR/$AUR_REPO.files.tar.gz
+
+#mv $AUR_REPO.db.tar.gz.sig $AUR_REPO.db.sig &> /dev/null
+#mv $AUR_REPO.files.tar.gz.sig $AUR_REPO.files.sig &> /dev/null
