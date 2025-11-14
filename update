@@ -17,6 +17,12 @@ rm -f "$AUR_REPO_DIR"/*.db "$AUR_REPO_DIR"/*.files "$AUR_REPO_DIR"/*.sig "$AUR_R
 repo-add --verify "$AUR_REPO_DIR/$AUR_REPO.db.tar.gz" "$AUR_REPO_DIR"/*.pkg.tar.zst
 
 # Delete/rename files for pacman
+mv "$AUR_REPO_DIR/$AUR_REPO.db.tar.gz" "$AUR_REPO_DIR/$AUR_REPO.db"
+mv "$AUR_REPO_DIR/$AUR_REPO.files.tar.gz" "$AUR_REPO_DIR/$AUR_REPO.files"
+ln -sfr "$AUR_REPO_DIR/$AUR_REPO.db" "$AUR_REPO_DIR/$AUR_REPO.db.tar.gz"
+ln -sfr "$AUR_REPO_DIR/$AUR_REPO.files" "$AUR_REPO_DIR/$AUR_REPO.files.tar.gz"
+
+
 #rm $AUR_REPO.db $AUR_REPO.files &> /dev/null
 
 #mv $AUR_REPO.db.tar.gz $AUR_REPO.db &> /dev/null
